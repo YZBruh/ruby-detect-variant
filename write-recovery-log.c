@@ -42,7 +42,7 @@ void write_recovery_log(char *logmessage, char *type)
     /* generate recovery log message */
     sprintf(recovery_logs_msg, "%s:%s: %s", logtype, DETINF_LOG_TAG, logmessage);
 
-    reclogs = fopen(DETINF_RECOVERY_LOGS, "w");
+    reclogs = fopen(DETINF_RECOVERY_LOGS, "a");
     /* open recovery log with write_only */
     if (reclogs == NULL)
     {
