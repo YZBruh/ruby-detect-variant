@@ -19,3 +19,9 @@ service ruby-detect-variant /system/bin/ruby-detect-variant
 on boot
     start ruby-detect-variant
 ```
+
+## About the binary
+
+ - This binary writes everything that happens to the android logs and recovery logs.
+ - There are `ruby` and `rubypro` variants. The variant to be used currently is coded in `ruby/variants-ruby.h`. By editing the existing `DEFAULT_DEVICE` macro, you can thus select the variant to be loaded if a particular device cannot be detected. What's available now is `ruby`.
+
