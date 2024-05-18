@@ -1,20 +1,17 @@
-cc_binary {
-        name: "ruby-detect-variant",
-            srcs: [
-                        "ruby-detect-variant.c",
-                                "write-recovery-log.c",
-                                        "load-variant.c",
-            ],
-                include_dirs: ["ruby"],
-                    shared_libs: ["liblog"],
-                        cflags: [
-                                    "-O3",
-                                            "-g",
-                                                    "-Wall",
-                        ],
-                            installable: true,
-                                stem: "ruby-detect-variant",
-}
-                        ]
-            ]
+cc_binary { 
+    name: "ruby-detect-variant",
+    srcs: [
+        "ruby-detect-variant.c",
+        "write-recovery-log.c",
+        "load-variant.c",
+     ],
+     include_dirs: ["ruby"],
+     shared_libs: ["liblog"],
+     cflags: [
+         "-O3",
+         "-g",
+         "-Wall",
+     ],
+     installable: true,
+     stem: "ruby-detect-variant",
 }
