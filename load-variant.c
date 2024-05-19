@@ -20,7 +20,6 @@
 #define __IS_USES_LOGGING_FEATURES__
 
 #include <stdlib.h>
-#include <unistd.h>
 #include <stdio.h>
 #include <string.h>
 #include <android/log.h>
@@ -36,7 +35,7 @@ setprop(char *property, char *value)
     if (__system_property_set(property, value) != 0)
     {
         /* I think it is right to include these types of errors only in android logs. */
-        LOGERR("Failed to set property %s to %s", property, value);
+        LOGERR("Failed to set property %s to %s. Reason: %s", property, value, strerror(errno));
         exit(45);
     }
 }
