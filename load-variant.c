@@ -33,7 +33,6 @@
 static void
 setprop(char *property, char *value)
 {
-    static char *failsetpropmsg = NULL;
     if (__system_property_set(property, value) != 0)
     {
         /* I think it is right to include these types of errors only in android logs. */
