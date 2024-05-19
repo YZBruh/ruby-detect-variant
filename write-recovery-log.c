@@ -18,7 +18,7 @@
 
 #if defined(__cplusplus)
 extern "C" {
-#endif
+#endif /* __cplusplus */
 
 #define __LOG_WRITER_INCLUDED__
 #define __IS_USES_LOGGING_FEATURES__
