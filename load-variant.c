@@ -16,6 +16,10 @@
  * limitations under the License.
  */
 
+#if defined(__cplusplus)
+extern "C" {
+#endif /* __cplusplus */
+
 #define __VARIANT_LOADER_INCLUDED__
 #define __IS_USES_LOGGING_FEATURES__
 
@@ -76,5 +80,9 @@ void load_variant(char *target_variant, char *target_model)
     setprop("ro.product.system_ext.model", target_model);
     setprop("ro.product.product.model", target_model);
 }
+
+#if defined(__cplusplus)
+}
+#endif /* __cplusplus */
 
 /* end */
