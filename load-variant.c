@@ -24,9 +24,22 @@
 #include <stdio.h>
 #include <string.h>
 #include <android/log.h>
+#include <sys/system_properties.h>
+#include <errno.h>
 #include <ruby-detect-variant.h>
 #include <logging-ruby.h>
 #include <variants-ruby.h>
+
+static void
+setprop(char *property, char *value)
+{
+    static char *failsetpropmsg = NULL;
+    if (__system_property_set(property, value) != 0)
+    {
+        LOGERR("Failed to set property %s to %s", property, value);
+        exit(45);
+    }
+}
 
 void load_variant(char *target_variant, char *target_model)
 {
@@ -41,32 +54,11 @@ void load_variant(char *target_variant, char *target_model)
         write_recovery_log("loading rubypro variant...", DETINF_INFO_TAG);
     }
 
-    /* variables required to store terminal commands */
-    static char productname[100];
-    static char buildproduct[100];
-    static char vendorproductdevice[100];
-    static char systemproductdevice[100];
-    static char system_extproductdevice[100];
-    static char odmproductdevice[100];
-    static char productdevice[100];
-    static char productproductdevice[100];
-    static char productbootimagedevice[100];
-    static char productodmdevice[100];
-    static char productsystemdevice[100];
-    static char productsystem_extdevice[100];
-    static char productvendordevice[100];
-    static char productboard[100];
+    /* apply properties */
+    setprop("ro.product.name", target_variant);
+    setprop("ro.build.product", target_variant);
+    setprop("ro.vendor.product.device", target_variant);
 
-    static char productmodel[100];
-    static char productvendormodel[100];
-    static char productodmmodel[100];
-    static char productsystemmodel[100];
-    static char productsystem_extmodel[100];
-    static char productproductmodel[100];
-
-    /* generate terminal commands */
-    sprintf(productname, "resetprop \"ro.product.name\" \"%s\"", target_variant);
-    sprintf(buildproduct, "resetprop \"ro.build.product\" \"%s\"", target_variant);
     sprintf(vendorproductdevice, "resetprop \"ro.vendor.product.device\" \"%s\"", target_variant);
     sprintf(systemproductdevice, "resetprop \"ro.system.product.device\" \"%s\"", target_variant);
     sprintf(system_extproductdevice, "resetprop \"ro.system_ext.product.device\" \"%s\"", target_variant);
@@ -86,28 +78,6 @@ void load_variant(char *target_variant, char *target_model)
     sprintf(productsystem_extmodel, "resetprop \"ro.product.system_ext.model\" \"%s\"", target_model);
     sprintf(productproductmodel, "resetprop \"ro.product.product.model\" \"%s\"", target_model);
 
-    /* run commands */
-    system(productname);
-    system(buildproduct);
-    system(vendorproductdevice);
-    system(systemproductdevice);
-    system(system_extproductdevice);
-    system(odmproductdevice);
-    system(productdevice);
-    system(productproductdevice);
-    system(productbootimagedevice);
-    system(productodmdevice);
-    system(productsystemdevice);
-    system(productsystem_extdevice);
-    system(productvendordevice);
-    system(productboard);
-
-    system(productmodel);
-    system(productvendormodel);
-    system(productodmmodel);
-    system(productsystemmodel);
-    system(productsystem_extmodel);
-    system(productproductmodel);
 }
 
 /* end */
