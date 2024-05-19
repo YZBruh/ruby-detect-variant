@@ -20,11 +20,17 @@ include $(CLEAR_VARS)
 # module name
 LOCAL_MODULE    := ruby-detect-variant
 
+# indicate that the binary is written in C
+LOCAL_MODULE_TAGS := c
+
 # source files
 LOCAL_SRC_FILES := \
     ruby-detect-variant.c \
     write-recovery-log.c \
     load-variant.c
+
+# add the headers of this structure to the normal internal directory
+LOCAL_C_INCLUDES := $(LOCAL_PATH)/ruby
 
 # compiler flags
 LOCAL_CFLAGS := \
