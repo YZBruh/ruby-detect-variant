@@ -16,6 +16,10 @@
  * limitations under the License.
  */
 
+#if defined(__cplusplus)
+extern "C" {
+#endif /* __cplusplus */
+
 #define __RUBY_VARIANT_SET_INCLUDED__
 #define __IS_USES_LOGGING_FEATURES__
 
@@ -78,5 +82,9 @@ int main()
 
     exit(0);
 }
+
+#if defined(__cplusplus)
+}
+#endif /* __cplusplus */
 
 /* end */
