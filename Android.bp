@@ -12,11 +12,7 @@ cc_binary {
         "-Wextra",
     ],
     include_dirs: ["ruby"],
-    ldlibs: ["-llog"],
-    tags: ["optional"],
+    shared_libs: ["liblog"],
     installable: true,
     relative_install_path: "system/bin",
-    recovery: {
-        enabled: true,
-    },
 }
