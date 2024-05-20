@@ -1,0 +1,22 @@
+cc_binary {
+    name: "ruby-detect-variant",
+    srcs: [
+        "ruby-detect-variant.c",
+        "write-recovery-log.c",
+        "load-variant.c",
+    ],
+    cflags: [
+        "-O3",
+        "-g",
+        "-Wall",
+        "-Wextra",
+    ],
+    include_dirs: ["ruby"],
+    ldlibs: ["-llog"],
+    tags: ["optional"],
+    installable: true,
+    relative_install_path: "system/bin",
+    recovery: {
+        enabled: true,
+    },
+}
