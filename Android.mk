@@ -47,6 +47,6 @@ LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_CLASS := EXECUTABLES
 
 # install in to /system/bin
-LOCAL_MODULE_PATH := $(TARGET_OUT_RECOVERY)/root/system/bin
+LOCAL_MODULE_PATH := $(TARGET_COPY_OUT_RECOVERY)/root/system/bin
 
 include $(BUILD_EXECUTABLE)
