@@ -18,7 +18,7 @@ LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
 
 # module name
-LOCAL_MODULE    := ruby-detect-variant
+LOCAL_MODULE := ruby-detect-variant
 
 # indicate that the binary is written in C
 LOCAL_MODULE_TAGS := c
@@ -40,7 +40,7 @@ LOCAL_CFLAGS := \
     -Wexra
 
 # libs to be linked
-LOCAL_LDLIBS    := -llog
+LOCAL_LDLIBS := -llog
 
 # other configs
 LOCAL_MODULE_TAGS := optional
