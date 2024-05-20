@@ -5,7 +5,7 @@ It is licensed under Apache 2.0.
 I will explain step by step...
 
  - First download this repository and place it in the device tree in ruby-detect-variant folder name.
- - Add the following flag anywhere in `BoardConfig.mk` (after adding the `DEVICE_PATH` variable): `TARGET_RECOVERY_DEVICE_DIRS += $(DEVICE_PATH)/ruby-detect-variant`
+ - Then add the following flag in device.mk somewhere under `PRODUCT_SOONG_NAMESPACES`: `PRODUCT_PACKAGES += ruby-detect-variant`
  - And of course, add the following codes to the places you deem appropriate in `init.recovery.mt6877.rc`:
 
 ```
