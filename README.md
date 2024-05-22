@@ -9,7 +9,7 @@ I will explain step by step...
  - And of course, add the following codes to the places you deem appropriate in `init.recovery.mt6877.rc`:
 
 ```
-service ruby-detect-variant /vendor/bin/ruby-detect-variant
+service ruby-detect-variant /vendor/bin/ruby-detect-variant --default ruby
     user root
     group root
     disabled
@@ -23,5 +23,4 @@ on boot
 ## About the binary
 
  - This binary writes everything that happens to the android logs and recovery logs.
- - There are `ruby` and `rubypro` variants. The variant to be used currently is coded in `ruby/variants-ruby.h`. By editing the existing `DEFAULT_DEVICE` macro, you can thus select the variant to be loaded if a particular device cannot be detected. What's available now is `ruby`.
-
+ - To change the current variant, simply change the available flag that you will add to the rc file (--default).
