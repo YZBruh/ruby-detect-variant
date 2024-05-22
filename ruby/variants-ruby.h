@@ -32,8 +32,6 @@
     #define DEFAULT_DEVICE   "ruby"
 #endif /* __RUBY_VARIANT_SET_INCLUDED__ */
 
-extern char *default_device;
-
 #endif /* __VARIANTS__ */
 
 /* end */
