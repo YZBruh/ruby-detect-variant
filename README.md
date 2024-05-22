@@ -24,3 +24,4 @@ on boot
 
  - This binary writes everything that happens to the android logs and recovery logs.
  - To change the current variant, simply change the available flag that you will add to the rc file (--default).
+ - If the default variant flag is not used, ruby is used. If the wrong variant name is declared, an error is generated (and exit).
