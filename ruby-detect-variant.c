@@ -33,15 +33,14 @@ extern "C" {
 #include <logging-ruby.h>
 #include <variants-ruby.h>
 
-char *default_device = NULL;
-
 int main(int argc, char *argv[])
 {
     struct option long_options[] = {
         {"default", required_argument, 0, 0},
         {0, 0, 0, 0}
     };
-    static char *default_devicetmp;
+    static char *default_device = NULL;
+    static char *default_devicetmp = NULL;
     static int opt;
 
     while ((opt = getopt_long(argc, argv, "", long_options, NULL)) != -1)
