@@ -28,12 +28,42 @@ extern "C" {
 #include <stdio.h>
 #include <string.h>
 #include <android/log.h>
+#include <getopt.h>
 #include <ruby-detect-variant.h>
 #include <logging-ruby.h>
 #include <variants-ruby.h>
 
-int main()
+char *default_device = NULL;
+
+int main(int argc, char *argv[])
 {
+    struct option long_options[] = {
+        {"default", required_argument, 0, 0},
+        {0, 0, 0, 0}
+    };
+    static char *default_devicetmp;
+    static int opt;
+
+    while ((opt = getopt_long(argc, argv, "", long_options, NULL)) != -1)
+    {
+        switch (opt)
+        {
+            case 0:
+                default_devicetmp = strdup(optarg);
+                if (strcmp(default_devicetmp, "ruby") == 0) default_device = default_devicetmp;
+                else if (strcmp(default_devicetmp, "rubypro") == 0) default_device = default_devicetmp;
+                else {
+                    LOGERR("unknown default variant argument: %s", default_devicetmp);
+                    write_recovery_log("unknown default variant argument detected!", DETINF_ERR_TAG);
+                    exit(21);
+                }
+                break;
+        } 
+    }
+
+    /* if variant flag is not specified set ruby as current variant */
+    if (argc == 1) defult_device = "ruby";
+    
     /* write current status */
     LOGINF("starting variant loader...");
     write_recovery_log("starting variant loader...", DETINF_INFO_TAG);
@@ -76,7 +106,7 @@ int main()
         } else {
             LOGWARN("any device could not be detected. Using ruby variant.");
             write_recovery_log("any device could not be detected. Using default variant.", DETINF_WARN_TAG);
-            load_variant(DEFAULT_DEVICE, TARGET_1ND_DEVICE_MODEL);
+            load_variant(default_device, TARGET_1ND_DEVICE_MODEL);
         }
     }
 
