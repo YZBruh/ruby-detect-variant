@@ -9,7 +9,7 @@ I will explain step by step...
  - And of course, add the following codes to the places you deem appropriate in `init.recovery.mt6877.rc`:
 
 ```
-service ruby-detect-variant /system/bin/ruby-detect-variant
+service ruby-detect-variant /vendor/bin/ruby-detect-variant
     user root
     group root
     disabled
