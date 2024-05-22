@@ -61,7 +61,7 @@ int main(int argc, char *argv[])
     }
 
     /* if variant flag is not specified set ruby as current variant */
-    if (argc == 1) defult_device = "ruby";
+    if (argc == 1) default_device = "ruby";
     
     /* write current status */
     LOGINF("starting variant loader...");
