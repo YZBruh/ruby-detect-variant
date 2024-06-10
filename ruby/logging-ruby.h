@@ -18,6 +18,8 @@
 
 #pragma once
 
+__BEGIN_DECLS
+
 #if !defined(__LOGGING_RUBY__)
 #define __LOGGING_RUBY__
 
@@ -39,5 +41,7 @@
 #endif /* __IS_USES_LOGGING_FUNCS__ */
 
 #endif /* __LOGGING_RUBY__ */
+
+__END_DECLS
 
 /* end */
