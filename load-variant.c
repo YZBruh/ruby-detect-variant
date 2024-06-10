@@ -39,8 +39,8 @@ setprop(char *property, char *value)
     if (__system_property_set(property, value) != 0)
     {
         /* I think it is right to include these types of errors only in android logs. */
-        LOGERR("Failed to set property %s to %s. Reason: %s", property, value, strerror(errno));
-        exit(45);
+        LOGERR("Failed to set property %s to %s. Reason: %s. Trying generating property...", property, value, strerror(errno));
+        __system_property_add(property, strlen(property), value, strlen(value));
     }
 }
 
