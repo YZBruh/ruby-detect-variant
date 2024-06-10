@@ -51,7 +51,8 @@ void load_variant(char *target_variant, char *target_model)
     {
         LOGINF("loading ruby variant...");
         write_recovery_log("loading ruby variant...", DETINF_INFO_TAG);
-    } else if (strcmp(target_variant, TARGET_2ND_DEVICE_NAME) == 0)
+    }
+    else if (strcmp(target_variant, TARGET_2ND_DEVICE_NAME) == 0)
     {
         LOGINF("loading rubypro variant...");
         write_recovery_log("loading rubypro variant...", DETINF_INFO_TAG);

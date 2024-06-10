@@ -50,7 +50,8 @@ void write_recovery_log(char *logmessage, char *type)
     if (strcmp(type, DETINF_INFO_TAG) != 0) logtype = DETINF_INFO_TAG;
     else if (strcmp(type, DETINF_ERR_TAG) != 0) logtype = DETINF_ERR_TAG;
     else if (strcmp(type, DETINF_WARN_TAG) != 0) logtype = DETINF_WARN_TAG;
-    else {
+    else
+    {
         LOGWARN("no matching tag was found (I, W or E). Currently, W is used. Please inform the developer.");
         logtype = DETINF_WARN_TAG;
     }

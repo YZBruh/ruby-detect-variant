@@ -51,7 +51,8 @@ int main(int argc, char *argv[])
                 default_devicetmp = strdup(optarg);
                 if (strcmp(default_devicetmp, "ruby") == 0) default_device = default_devicetmp;
                 else if (strcmp(default_devicetmp, "rubypro") == 0) default_device = default_devicetmp;
-                else {
+                else
+                {
                     LOGERR("unknown default variant argument: %s", default_devicetmp);
                     write_recovery_log("unknown default variant argument detected!", DETINF_ERR_TAG);
                     exit(21);
@@ -96,13 +97,16 @@ int main(int argc, char *argv[])
             write_recovery_log("ruby variant detected.", DETINF_INFO_TAG);
             load_variant(TARGET_1ND_DEVICE_NAME, TARGET_1ND_DEVICE_MODEL);
         /* load rubypro variant */
-        } else if (strcmp(hwname, TARGET_2ND_DEVICE_NAME) == 0)
+        }
+        else if (strcmp(hwname, TARGET_2ND_DEVICE_NAME) == 0)
         {
             LOGINF("rubypro variant detected.");
             write_recovery_log("rubypro variant detected.", DETINF_INFO_TAG);
             load_variant(TARGET_2ND_DEVICE_NAME, TARGET_2ND_DEVICE_MODEL);
         /* load default variant. please see loader.h */
-        } else {
+        }
+        else
+        {
             LOGWARN("any device could not be detected. Using ruby variant.");
             write_recovery_log("any device could not be detected. Using default variant.", DETINF_WARN_TAG);
             load_variant(default_device, TARGET_1ND_DEVICE_MODEL);
