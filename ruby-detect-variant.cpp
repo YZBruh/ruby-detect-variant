@@ -16,22 +16,21 @@
  * limitations under the License.
  */
 
-#if defined(__cplusplus)
-extern "C" {
-#endif /* __cplusplus */
-
 #define __RUBY_VARIANT_SET_INCLUDED__
 #define __IS_USES_LOGGING_FEATURES__
 
-#include <stdlib.h>
+#include <iostream>
+#include <cstdlib>
 #include <unistd.h>
-#include <stdio.h>
-#include <string.h>
-#include <android/log.h>
+#include <cstdio>
+#include <cstring>
+#include <android-base/logging.h>
+#include "log.h"
 #include <getopt.h>
-#include <ruby-detect-variant.h>
-#include <logging-ruby.h>
-#include <variants-ruby.h>
+#include <resetprop.hpp>
+#include <ruby-detect-variant.hpp>
+#include <logging-ruby.hpp>
+#include <variants-ruby.hpp>
 
 int main(int argc, char *argv[])
 {
@@ -39,11 +38,12 @@ int main(int argc, char *argv[])
         {"default", required_argument, 0, 0},
         {0, 0, 0, 0}
     };
-    static char *default_device = NULL;
-    static char *default_devicetmp = NULL;
+
+    static char *default_device = nullptr;
+    static char *default_devicetmp = nullptr;
     static int opt;
 
-    while ((opt = getopt_long(argc, argv, "", long_options, NULL)) != -1)
+    while ((opt = getopt_long(argc, argv, "", long_options, nullptr)) != -1)
     {
         switch (opt)
         {
@@ -53,7 +53,7 @@ int main(int argc, char *argv[])
                 else if (strcmp(default_devicetmp, "rubypro") == 0) default_device = default_devicetmp;
                 else
                 {
-                    LOGERR("unknown default variant argument: %s", default_devicetmp);
+                    LOGERR("unknown default variant argument: " << default_devicetmp);
                     write_recovery_log("unknown default variant argument detected!", DETINF_ERR_TAG);
                     exit(21);
                 }
@@ -79,7 +79,7 @@ int main(int argc, char *argv[])
     FILE *hw = popen("resetprop ro.boot.hwname", "r");
 
     /* check status */
-    if (hw == NULL)
+    if (hw == nullptr)
     {
         LOGERR("failed to reset ro.boot.hwname property");
         write_recovery_log("failed to reset ro.boot.hwname property", DETINF_ERR_TAG);
@@ -87,7 +87,7 @@ int main(int argc, char *argv[])
     }
 
     /* detect variant */
-    if (fgets(hwname, sizeof(hwname), hw) != NULL)
+    if (fgets(hwname, sizeof(hwname), hw) != nullptr)
     {
         pclose(hw);
         /* load ruby variant */
@@ -103,7 +103,7 @@ int main(int argc, char *argv[])
             LOGINF("rubypro variant detected.");
             write_recovery_log("rubypro variant detected.", DETINF_INFO_TAG);
             load_variant(TARGET_2ND_DEVICE_NAME, TARGET_2ND_DEVICE_MODEL);
-        /* load default variant. please see loader.h */
+        /* load default variant. please see include/detector/variants-ruby.hpp */
         }
         else
         {
@@ -115,9 +115,5 @@ int main(int argc, char *argv[])
 
     exit(0);
 }
-
-#if defined(__cplusplus)
-}
-#endif /* __cplusplus */
 
 /* end */

@@ -1,4 +1,4 @@
-/* ruby-detect-variant | logging-shorts.h */
+/* ruby-detect-variant | logging-ruby.h */
 
 /*
  * Copyright (C) 2024 The Android Open Source Project
@@ -18,8 +18,6 @@
 
 #pragma once
 
-__BEGIN_DECLS
-
 #if !defined(__LOGGING_RUBY__)
 #define __LOGGING_RUBY__
 
@@ -34,14 +32,16 @@ __BEGIN_DECLS
     #define DETINF_WARN_TAG      "W"
     #define DETINF_LOG_TAG       "ruby-detect-variant"
 
+    /* initialize */
+    android::base::InitLogging(nullptr, &android::base::StderrLogger);
+
     /* logging */
-    #define LOGINF(...) __android_log_print(ANDROID_LOG_INFO, DETINF_LOG_TAG, __VA_ARGS__)
-    #define LOGERR(...) __android_log_print(ANDROID_LOG_ERROR, DETINF_LOG_TAG, __VA_ARGS__)
-    #define LOGWARN(...) __android_log_print(ANDROID_LOG_WARN, DETINF_LOG_TAG, __VA_ARGS__)
+    #define LOGINF(...) LOG(INFO) << DETINF_LOG_TAG << ": " << DETINF_INFO_TAG << ": " << fmt << " " << __VA_ARGS__
+    #define LOGERR(...) LOG(ERROR) << DETINF_LOG_TAG << ": " << DETINF_ERR_TAG << ": " << fmt << " " << __VA_ARGS__
+    #define LOGWARN(...) LOG(WARNING) << DETINF_LOG_TAG << ": " << DETINF_WARN_TAG << ": " << fmt << " " << __VA_ARGS__
+
 #endif /* __IS_USES_LOGGING_FUNCS__ */
 
 #endif /* __LOGGING_RUBY__ */
-
-__END_DECLS
 
 /* end */

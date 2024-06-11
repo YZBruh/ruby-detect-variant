@@ -16,40 +16,39 @@
  * limitations under the License.
  */
 
-#if defined(__cplusplus)
-extern "C" {
-#endif /* __cplusplus */
-
 #define __LOG_WRITER_INCLUDED__
 #define __IS_USES_LOGGING_FEATURES__
 
-#include <android/log.h>
+#include <android-base/logging.h>
+#include "log.h"
 #include <unistd.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
-#include <fcntl.h>
-#include <ruby-detect-variant.h>
-#include <logging-ruby.h>
-#include <recovery-logging-ruby.h>
+#include <cstdlib>
+#include <cstdio>
+#include <string>
+#include <fstream>
+#include <sstream>
+#include <ruby-detect-variant.hpp>
+#include <logging-ruby.hpp>
+#include <recovery-logging-ruby.hpp>
 
-void write_recovery_log(char *logmessage, char *type)
+using namespace std;
+
+void write_recovery_log(const char* logmessage, const char* type)
 {
-    static char recovery_logs_msg[1024];
-    static char *logtype;
-    FILE *reclogs;
+    static char *logtype = nullptr;
+    ofstream reclogs;
 
     /* if recovery logs not found, exit */
     if (access(DETINF_RECOVERY_LOGS, F_OK) != 0)
     {
-        LOGERR("no recovery logs were found. the target path: %s", DETINF_RECOVERY_LOGS);
+        LOGERR("no recovery logs were found. the target path: " << DETINF_RECOVERY_LOGS);
         exit(9);
     }
 
     /* detect log tag */
-    if (strcmp(type, DETINF_INFO_TAG) != 0) logtype = DETINF_INFO_TAG;
-    else if (strcmp(type, DETINF_ERR_TAG) != 0) logtype = DETINF_ERR_TAG;
-    else if (strcmp(type, DETINF_WARN_TAG) != 0) logtype = DETINF_WARN_TAG;
+    if (strcmp(type, DETINF_INFO_TAG) == 0) logtype = DETINF_INFO_TAG;
+    else if (strcmp(type, DETINF_ERR_TAG) == 0) logtype = DETINF_ERR_TAG;
+    else if (strcmp(type, DETINF_WARN_TAG) == 0) logtype = DETINF_WARN_TAG;
     else
     {
         LOGWARN("no matching tag was found (I, W or E). Currently, W is used. Please inform the developer.");
@@ -57,30 +56,28 @@ void write_recovery_log(char *logmessage, char *type)
     }
 
     /* generate recovery log message */
-    sprintf(recovery_logs_msg, "%s:%s: %s", logtype, DETINF_LOG_TAG, logmessage);
+    stringstream recovery_logs_msg;
+    recovery_logs_msg << logtype << ":" << DETINF_LOG_TAG << ": " << logmessage;
 
-    reclogs = fopen(DETINF_RECOVERY_LOGS, "a");
-    /* open recovery log with write_only */
-    if (reclogs == NULL)
+    /* open recovery log with adding mode */
+    reclogs.open(DETINF_RECOVERY_LOGS, ios::app);
+
+    if (!reclogs.is_open())
     {
         LOGERR("Failed to open recovery logs!");
         exit(4);
     }
 
     /* write log */
-    if (fprintf(reclogs, "%s", recovery_logs_msg) != 0)
+    if (!(reclogs << recovery_logs_msg.str() << endl))
     {
-        fclose(reclogs);
+        reclogs.close();
         LOGERR("Failed to write recovery logs!");
         exit(3);
     }
 
     /* close recovery log */
-    fclose(reclogs);
+    reclogs.close();
 }
-
-#if defined(__cplusplus)
-}
-#endif /* __cplusplus */
 
 /* end */

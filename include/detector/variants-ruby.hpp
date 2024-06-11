@@ -16,8 +16,6 @@
  * limitations under the License.
  */
 
-__BEGIN_DECLS
-
 #if !defined(__VARIANTS__)
 #define __VARIANTS__
 
@@ -35,7 +33,5 @@ __BEGIN_DECLS
 #endif /* __RUBY_VARIANT_SET_INCLUDED__ */
 
 #endif /* __VARIANTS__ */
-
-__END_DECLS
 
 /* end */

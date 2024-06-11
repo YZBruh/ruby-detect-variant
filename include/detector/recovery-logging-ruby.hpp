@@ -18,8 +18,6 @@
 
 #pragma once
 
-__BEGIN_DECLS
-
 #if !defined(__RECOVERY_LOGGING__)
 #define __RECOVERY_LOGGING__
 
@@ -30,7 +28,5 @@ __BEGIN_DECLS
 #endif /* __LOG_WRITER_INCLUDED__ */
 
 #endif /* __RECOVERY_LOGGING__ */
-
-__END_DECLS
 
 /* end */

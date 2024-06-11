@@ -32,7 +32,12 @@
 #include <sys/cdefs.h>
 #include <stdint.h>
 
-#include <sys/system_properties.h>
+#ifndef _REALLY_INCLUDE_SYS__SYSTEM_PROPERTIES_H_
+#error you should #include <sys/system_properties.h> instead
+#endif
+
+//#include <sys/system_properties.h>
+#include "system_properties.h"
 
 __BEGIN_DECLS
 
@@ -57,7 +62,7 @@ __BEGIN_DECLS
 ** This was previously for testing, but now that SystemProperties is its own testable class,
 ** there is never a reason to call this function and its implementation simply returns -1.
 */
-int __system_property_set_filename(const char* __unused __filename);
+int __system_property_set_filename(const char* __filename);
 
 /*
 ** Initialize the area to be used to store properties.  Can
@@ -98,7 +103,13 @@ uint32_t __system_property_area_serial(void);
 **
 ** Returns 0 on success, -1 if the property area is full.
 */
-int __system_property_add(const char* _Nonnull __name, unsigned int __name_length, const char* _Nonnull __value, unsigned int __value_length);
+int __system_property_add(const char* __name, unsigned int __name_length, const char* __value, unsigned int __value_length);
+
+/* Delete a system property. Added in resetprop
+**
+** Returns 0 on success, -1 if the property area is full.
+*/
+int __system_property_del(const char *__name);
 
 /* Update the value of a system property returned by
 ** __system_property_find.  Can only be done by a single process
@@ -108,14 +119,14 @@ int __system_property_add(const char* _Nonnull __name, unsigned int __name_lengt
 **
 ** Returns 0 on success, -1 if the parameters are incorrect.
 */
-int __system_property_update(prop_info* _Nonnull __pi, const char* _Nonnull __value, unsigned int __value_length);
+int __system_property_update(prop_info* __pi, const char* __value, unsigned int __value_length);
 
 /* Read the serial number of a system property returned by
 ** __system_property_find.
 **
 ** Returns the serial number on success, -1 on error.
 */
-uint32_t __system_property_serial(const prop_info* _Nonnull __pi);
+uint32_t __system_property_serial(const prop_info* __pi);
 
 /* Initialize the system properties area in read only mode.
  * Should be done by all processes that need to read system
@@ -130,4 +141,4 @@ uint32_t __system_property_wait_any(uint32_t __old_serial);
 
 __END_DECLS
 
-#endif 
+#endif

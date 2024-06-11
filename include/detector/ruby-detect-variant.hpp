@@ -16,16 +16,14 @@
  * limitations under the License.
  */
 
-__BEGIN_DECLS
-
 #if !defined(__RUBY_DETECT_VARIANT__)
 #define __RUBY_DETECT_VARIANT__
 
-void write_recovery_log(char *logmessage, char *type);
-void load_variant(char *target_variant, char *target_model);
+void write_recovery_log(const char* logmessage, const char* type);
+void load_variant(const char* target_variant, const char* target_model);
+
+bool static_prop_svc = true;
 
 #endif /* __RUBY_DETECT_VARIANT__ */
-
-__END_DECLS
 
 /* end */
