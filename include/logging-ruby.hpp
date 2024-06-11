@@ -42,12 +42,9 @@
 
     __BEGIN_DECLS
 
-    #define LOGERR(fmt, ...) \
-      ((void)__android_log_print(ANDROID_LOG_ERROR, (LIBRESETPROP_RUBY), (fmt)__VA_OPT__(, ) __VA_ARGS__))
-    #define LOGWARN(fmt, ...) \
-      ((void)__android_log_print(ANDROID_LOG_WARN, (LIBRESETPROP_RUBY), (fmt)__VA_OPT__(, ) __VA_ARGS__))
-    #define LOGINF(fmt, ...) \
-      ((void)__android_log_print(ANDROID_LOG_INFO, (LIBRESETPROP_RUBY), (fmt)__VA_OPT__(, ) __VA_ARGS__))
+    #define LOGINF(...) __android_log_print(ANDROID_LOG_INFO, DETINF_LOG_TAG, __VA_ARGS__)
+    #define LOGERR(...) __android_log_print(ANDROID_LOG_ERROR, DETINF_LOG_TAG, __VA_ARGS__)
+    #define LOGWARN(...) __android_log_print(ANDROID_LOG_WARN, DETINF_LOG_TAG, __VA_ARGS__)
 
     __END_DECLS
 
