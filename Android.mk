@@ -15,7 +15,7 @@
 # limitations under the License.
 
 LOCAL_PATH := $(call my-dir)
-LIBRESETPROP_RUBY := $(LOCAL_PATH)/libresetprop_ruby
+LIBRESETPROP_RUBY := libresetprop_ruby
 
 include $(CLEAR_VARS)
 
