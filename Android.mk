@@ -28,12 +28,12 @@ LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_PATH := $(TARGET_RECOVERY_ROOT_OUT)/system/lib64
 LOCAL_C_INCLUDES := \
     $(LIBRESETPROP_RUBY) \
-    $(MAGISK_ROOT_PATH)/include \
-    $(MAGISK_ROOT_PATH)/utils/include \
-    $(LIBNANOPB) \
-    $(LIBSYSTEMPROPERTIES) \
-    $(LIBSYSTEMPROPERTIES)/include \
-    $(LIBUTILS) \
+    external/magisk-prebuilt/include \
+    external/magisk-prebuilt/utils/include \
+    external/magisk-prebuilt \
+    external/magisk-prebuilt/external/nanopb \
+    external/magisk-prebuilt/systemproperties/include \
+    external/magisk-prebuilt/utils \
     bionic/libc \
     bionic/libc/include \
     system/core/base/include \
@@ -68,7 +68,7 @@ LOCAL_CFLAGS = \
     -g
 
 LOCAL_C_INCLUDES += \
-    $(MAGISK_ROOT_PATH)/include \
+    external/magisk-prebuilt/include \
     $(LOCAL_PATH)/include/detector \
     $(LOCAL_PATH)/include/resetprop \
     system/core/base/include \
