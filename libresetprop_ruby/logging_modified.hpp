@@ -5,6 +5,14 @@
 #include <sys/cdefs.h>
 #include <android/log.h>
 
+struct log_callback {
+    int (*d)(const char* fmt, va_list ap);
+    int (*i)(const char* fmt, va_list ap);
+    int (*w)(const char* fmt, va_list ap);
+    int (*e)(const char* fmt, va_list ap);
+    void (*ex)(int code);
+};
+
 extern log_callback log_cb;
 
 #define LIBRESETPROP_RUBY "libresetprop_ruby"
