@@ -32,13 +32,24 @@
     #define DETINF_WARN_TAG      "W"
     #define DETINF_LOG_TAG       "ruby-detect-variant"
 
-    /* initialize */
-    android::base::InitLogging(nullptr, &android::base::StderrLogger);
+    /**
+     * from system/logging/liblog/include/android/log_macros.h
+     * warning: edited
+     */
 
-    /* logging */
-    #define LOGINF(...) LOG(INFO) << DETINF_LOG_TAG << ": " << DETINF_INFO_TAG << ": " << fmt << " " << __VA_ARGS__
-    #define LOGERR(...) LOG(ERROR) << DETINF_LOG_TAG << ": " << DETINF_ERR_TAG << ": " << fmt << " " << __VA_ARGS__
-    #define LOGWARN(...) LOG(WARNING) << DETINF_LOG_TAG << ": " << DETINF_WARN_TAG << ": " << fmt << " " << __VA_ARGS__
+    #include <sys/cdefs.h>
+    #include <android/log.h>
+
+    __BEGIN_DECLS
+
+    #define LOGERR(fmt, ...) \
+      ((void)__android_log_print(ANDROID_LOG_ERROR, (LIBRESETPROP_RUBY), (fmt)__VA_OPT__(, ) __VA_ARGS__))
+    #define LOGWARN(fmt, ...) \
+      ((void)__android_log_print(ANDROID_LOG_WARN, (LIBRESETPROP_RUBY), (fmt)__VA_OPT__(, ) __VA_ARGS__))
+    #define LOGINF(fmt, ...) \
+      ((void)__android_log_print(ANDROID_LOG_INFO, (LIBRESETPROP_RUBY), (fmt)__VA_OPT__(, ) __VA_ARGS__))
+    
+    __END_DECLS
 
 #endif /* __IS_USES_LOGGING_FUNCS__ */
 
