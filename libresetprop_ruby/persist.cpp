@@ -2,6 +2,7 @@
 #include <pb_decode.h>
 #include <pb_encode.h>
 
+#include "logging_modified.h"
 #include "utils.hpp"
 
 #include "_resetprop.hpp"
