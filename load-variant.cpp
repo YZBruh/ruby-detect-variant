@@ -22,6 +22,7 @@
 #include <iostream>
 #include <android-base/logging.h>
 #include "log.h"
+#include <magisk.h>
 #include <resetprop.hpp>
 #include <ruby-detect-variant.hpp>
 #include <logging-ruby.hpp>
