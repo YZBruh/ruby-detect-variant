@@ -44,6 +44,9 @@ void load_variant(const char* target_variant, const char* target_model)
         write_recovery_log("loading rubypro variant...", DETINF_INFO_TAG);
     }
 
+    umask(0);
+    cmdline_logging();
+
     /* apply properties */
     setprop("ro.product.name", target_variant, static_prop_svc);
     setprop("ro.build.product", target_variant, static_prop_svc);
