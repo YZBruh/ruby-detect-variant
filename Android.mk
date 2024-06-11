@@ -47,7 +47,8 @@ LOCAL_CFLAGS = \
     -D__MVSTR="TWRP-dynamic" \
     -D__MCODE="ed58cf9" \
     -Wno-implicit-fallthrough \
-    -std=c++17
+    -std=c++17 \
+    -Wno-unused-parameter
 
 include $(BUILD_SHARED_LIBRARY)
 
