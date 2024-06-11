@@ -28,6 +28,7 @@ extern "C" {
 #include <string.h>
 #include <android/log.h>
 #include <sys/system_properties.h>
+#include <_sys_system_properties.h>
 #include <errno.h>
 #include <ruby-detect-variant.h>
 #include <logging-ruby.h>
