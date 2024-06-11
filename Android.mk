@@ -38,7 +38,8 @@ LOCAL_C_INCLUDES := \
     bionic/libc \
     bionic/libc/include \
     system/core/base/include \
-    system/core/init
+    system/core/init \
+    system/logging/liblog/include
 
 LOCAL_SRC_FILES := \
     $(LIBRESETPROP_RUBY)/persist.cpp \
@@ -76,7 +77,8 @@ LOCAL_C_INCLUDES += \
     $(LOCAL_PATH)/include/detector \
     $(LOCAL_PATH)/include/resetprop \
     system/core/base/include \
-    system/core/init
+    system/core/init \
+    system/logging/liblog/include
 
 LOCAL_SHARED_LIBRARIES := \
     liblog \
