@@ -5,7 +5,7 @@
 
 #include <resetprop.hpp>
 #include <utils.hpp>
-#include <logging.hpp>
+#include "logging.hpp"
 
 #define _REALLY_INCLUDE_SYS__SYSTEM_PROPERTIES_H_
 #include <system_properties/system_properties.h>
