@@ -16,14 +16,10 @@ extern log_callback log_cb;
 
 __BEGIN_DECLS
 
-#define LOGE(fmt, ...) \
-  ((void)__android_log_print(ANDROID_LOG_ERROR, (LIBRESETPROP_RUBY), (fmt)__VA_OPT__(, ) __VA_ARGS__))
-#define LOGW(fmt, ...) \
-  ((void)__android_log_print(ANDROID_LOG_WARN, (LIBRESETPROP_RUBY), (fmt)__VA_OPT__(, ) __VA_ARGS__))
-#define LOGI(fmt, ...) \
-  ((void)__android_log_print(ANDROID_LOG_INFO, (LIBRESETPROP_RUBY), (fmt)__VA_OPT__(, ) __VA_ARGS__))
-#define LOGD(fmt, ...) \
-  ((void)__android_log_print(ANDROID_LOG_DEBUG, (LIBRESETPROP_RUBY), (fmt)__VA_OPT__(, ) __VA_ARGS__))
+#define LOGI(...) __android_log_print(ANDROID_LOG_INFO, LIBRESETPROP_RUBY, __VA_ARGS__)
+#define LOGD(...) __android_log_print(ANDROID_LOG_DEBUG, LIBRESETPROP_RUBY, __VA_ARGS__)
+#define LOGE(...) __android_log_print(ANDROID_LOG_ERROR, LIBRESETPROP_RUBY, __VA_ARGS__)
+#define LOGW(...) __android_log_print(ANDROID_LOG_WARN, LIBRESETPROP_RUBY, __VA_ARGS__)
 
 __END_DECLS
 
