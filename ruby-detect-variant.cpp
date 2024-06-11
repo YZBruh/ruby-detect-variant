@@ -24,8 +24,6 @@
 #include <unistd.h>
 #include <cstdio>
 #include <cstring>
-#include <android-base/logging.h>
-#include "log.h"
 #include <getopt.h>
 #include <resetprop.hpp>
 #include <ruby-detect-variant.hpp>
@@ -39,9 +37,11 @@ int main(int argc, char *argv[])
         {0, 0, 0, 0}
     };
 
-    static char *default_device = nullptr;
-    static char *default_devicetmp = nullptr;
+    static char *default_device;
+    static char *default_devicetmp;
+    static bool static_persist;
     static int opt;
+    static_persist = true;
 
     while ((opt = getopt_long(argc, argv, "", long_options, nullptr)) != -1)
     {
@@ -53,7 +53,7 @@ int main(int argc, char *argv[])
                 else if (strcmp(default_devicetmp, "rubypro") == 0) default_device = default_devicetmp;
                 else
                 {
-                    LOGERR("unknown default variant argument: " << default_devicetmp);
+                    LOGERR("unknown default variant argument: %s", default_devicetmp);
                     write_recovery_log("unknown default variant argument detected!", DETINF_ERR_TAG);
                     exit(21);
                 }
@@ -73,44 +73,28 @@ int main(int argc, char *argv[])
 
     LOGINF("detecting device...");
     write_recovery_log("detecting device...", DETINF_INFO_TAG);
-    static char hwname[25];
+    char* hwname = getprop("ro.boot.hwname", static_persist);
 
-    /* reset ro.boot.hwname property and get output */
-    FILE *hw = popen("resetprop ro.boot.hwname", "r");
-
-    /* check status */
-    if (hw == nullptr)
+    /* load ruby variant */
+    if (strcmp(hwname, TARGET_1ND_DEVICE_NAME) == 0)
     {
-        LOGERR("failed to reset ro.boot.hwname property");
-        write_recovery_log("failed to reset ro.boot.hwname property", DETINF_ERR_TAG);
-        exit(71);
+        LOGINF("ruby variant detected.");
+        write_recovery_log("ruby variant detected.", DETINF_INFO_TAG);
+        load_variant(TARGET_1ND_DEVICE_NAME, TARGET_1ND_DEVICE_MODEL);
+    /* load rubypro variant */
     }
-
-    /* detect variant */
-    if (fgets(hwname, sizeof(hwname), hw) != nullptr)
+    else if (strcmp(hwname, TARGET_2ND_DEVICE_NAME) == 0)
     {
-        pclose(hw);
-        /* load ruby variant */
-        if (strcmp(hwname, TARGET_1ND_DEVICE_NAME) == 0)
-        {
-            LOGINF("ruby variant detected.");
-            write_recovery_log("ruby variant detected.", DETINF_INFO_TAG);
-            load_variant(TARGET_1ND_DEVICE_NAME, TARGET_1ND_DEVICE_MODEL);
-        /* load rubypro variant */
-        }
-        else if (strcmp(hwname, TARGET_2ND_DEVICE_NAME) == 0)
-        {
-            LOGINF("rubypro variant detected.");
-            write_recovery_log("rubypro variant detected.", DETINF_INFO_TAG);
-            load_variant(TARGET_2ND_DEVICE_NAME, TARGET_2ND_DEVICE_MODEL);
-        /* load default variant. please see include/detector/variants-ruby.hpp */
-        }
-        else
-        {
-            LOGWARN("any device could not be detected. Using ruby variant.");
-            write_recovery_log("any device could not be detected. Using default variant.", DETINF_WARN_TAG);
-            load_variant(default_device, TARGET_1ND_DEVICE_MODEL);
-        }
+        LOGINF("rubypro variant detected.");
+        write_recovery_log("rubypro variant detected.", DETINF_INFO_TAG);
+        load_variant(TARGET_2ND_DEVICE_NAME, TARGET_2ND_DEVICE_MODEL);
+    /* load default variant. please see include/detector/variants-ruby.hpp */
+    }
+    else
+    {
+        LOGWARN("any device could not be detected. Using ruby variant.");
+        write_recovery_log("any device could not be detected. Using default variant.", DETINF_WARN_TAG);
+        load_variant(default_device, TARGET_1ND_DEVICE_MODEL);
     }
 
     exit(0);
