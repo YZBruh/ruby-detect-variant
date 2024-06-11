@@ -20,7 +20,8 @@ LIBRESETPROP_RUBY := libresetprop_ruby
 include $(CLEAR_VARS)
 
 # general libresetprop_ruby variables
-LOCAL_MODULE := libresetprop_ruby
+LOCAL_MODULE := $(LIBRESETPROP_RUBY)
+LOCAL_MODULE_CLASS := SHARED_LIBRARIES
 LOCAL_MULTILIB := first
 LOCAL_STATIC_LIBRARIES := libnanopb libmagisksystemproperties libmagiskutils
 LOCAL_SHARED_LIBRARIES := liblog libselinux
@@ -59,12 +60,12 @@ LOCAL_MODULE := ruby-detect-variant
 LOCAL_MODULE_CLASS := RECOVERY_EXECUTABLES
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_PATH := $(TARGET_RECOVERY_ROOT_OUT)/system/bin
-LOCAL_SRC_FILES = \
+LOCAL_SRC_FILES := \
     ruby-detect-variant.cpp \
     write-recovery-log.cpp \
     load-variant.cpp
 
-LOCAL_CFLAGS = \
+LOCAL_CFLAGS := \
     -std=c++17 \
     -O3 \
     -Wall \
@@ -77,12 +78,12 @@ LOCAL_C_INCLUDES += \
     system/core/base/include \
     system/core/init
 
-LOCAL_SHARED_LIBRARIES = \
+LOCAL_SHARED_LIBRARIES := \
     liblog \
     libresetprop_ruby \
     libselinux
 
-LOCAL_STATIC_LIBRARIES = \
+LOCAL_STATIC_LIBRARIES := \
     libnanopb \
     libmagisksystemproperties \
     libmagiskutils
