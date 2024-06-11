@@ -33,7 +33,7 @@ using namespace std;
 
 void write_recovery_log(const char* logmessage, const char* type)
 {
-    static char *logtype = nullptr;
+    static const char* logtype = nullptr;
     FILE *reclogs;
 
     /* if recovery logs not found, exit */
@@ -52,9 +52,6 @@ void write_recovery_log(const char* logmessage, const char* type)
         LOGWARN("no matching tag was found (I, W or E). Currently, W is used. Please inform the developer.");
         logtype = DETINF_WARN_TAG;
     }
-
-    /* generate recovery log message */
-    sprintf(recovery_log_msg, );
 
     /* open recovery log with adding mode */
     reclogs = fopen(DETINF_RECOVERY_LOGS, "a"); 
