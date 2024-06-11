@@ -1,4 +1,4 @@
-/* ruby-detect-variant | recovery-logging.h */
+/* ruby-detect-variant | recovery-logging.hpp */
 
 /*
  * Copyright (C) 2024 The Android Open Source Project

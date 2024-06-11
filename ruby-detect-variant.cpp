@@ -73,7 +73,8 @@ int main(int argc, char *argv[])
 
     LOGINF("detecting device...");
     write_recovery_log("detecting device...", DETINF_INFO_TAG);
-    char* hwname = getprop("ro.boot.hwname", static_persist);
+    string hwname_temp = getprop("ro.boot.hwname", static_persist);
+    const char* hwname = str.hwname();
 
     /* load ruby variant */
     if (strcmp(hwname, TARGET_1ND_DEVICE_NAME) == 0)

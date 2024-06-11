@@ -1,4 +1,4 @@
-/* ruby-detect-variant | logging-ruby.h */
+/* ruby-detect-variant | logging-ruby.hpp */
 
 /*
  * Copyright (C) 2024 The Android Open Source Project
@@ -48,7 +48,7 @@
       ((void)__android_log_print(ANDROID_LOG_WARN, (LIBRESETPROP_RUBY), (fmt)__VA_OPT__(, ) __VA_ARGS__))
     #define LOGINF(fmt, ...) \
       ((void)__android_log_print(ANDROID_LOG_INFO, (LIBRESETPROP_RUBY), (fmt)__VA_OPT__(, ) __VA_ARGS__))
-    
+
     __END_DECLS
 
 #endif /* __IS_USES_LOGGING_FUNCS__ */
