@@ -43,9 +43,11 @@ LOCAL_SRC_FILES := \
     $(LIBRESETPROP_RUBY)/persist.cpp \
     $(LIBRESETPROP_RUBY)/resetprop.cpp
 
-LOCAL_CFLAGS += $(MAGISK_CFLAGS)
-LOCAL_LDFLAGS := $(MAGISK_LDFLAGS)
-LOCAL_CFLAGS += -Wno-implicit-fallthrough -std=c++17
+LOCAL_CFLAGS = \
+    -D__MVSTR="TWRP-dynamic" \
+    -D__MCODE="ed58cf9" \
+    -Wno-implicit-fallthrough \
+    -std=c++17
 
 include $(BUILD_SHARED_LIBRARY)
 
