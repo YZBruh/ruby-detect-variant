@@ -1,4 +1,4 @@
-/* ruby-detect-variant | ruby-set-variant.c */
+/* ruby-detect-variant | ruby-set-variant.cpp */
 
 /*
  * Copyright (C) 2024 The Android Open Source Project
