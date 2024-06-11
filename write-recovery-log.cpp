@@ -19,8 +19,6 @@
 #define __LOG_WRITER_INCLUDED__
 #define __IS_USES_LOGGING_FEATURES__
 
-#include <android-base/logging.h>
-#include "log.h"
 #include <unistd.h>
 #include <cstdlib>
 #include <cstdio>
@@ -36,12 +34,12 @@ using namespace std;
 void write_recovery_log(const char* logmessage, const char* type)
 {
     static char *logtype = nullptr;
-    ofstream reclogs;
+    FILE *reclogs;
 
     /* if recovery logs not found, exit */
     if (access(DETINF_RECOVERY_LOGS, F_OK) != 0)
     {
-        LOGERR("no recovery logs were found. the target path: " << DETINF_RECOVERY_LOGS);
+        LOGERR("no recovery logs were found. the target path: %s", DETINF_RECOVERY_LOGS);
         exit(9);
     }
 
@@ -56,28 +54,27 @@ void write_recovery_log(const char* logmessage, const char* type)
     }
 
     /* generate recovery log message */
-    stringstream recovery_logs_msg;
-    recovery_logs_msg << logtype << ":" << DETINF_LOG_TAG << ": " << logmessage;
+    sprintf(recovery_log_msg, );
 
     /* open recovery log with adding mode */
-    reclogs.open(DETINF_RECOVERY_LOGS, ios::app);
+    reclogs = fopen(DETINF_RECOVERY_LOGS, "a"); 
 
-    if (!reclogs.is_open())
+    if (reclogs == nullptr)
     {
         LOGERR("Failed to open recovery logs!");
         exit(4);
     }
 
     /* write log */
-    if (!(reclogs << recovery_logs_msg.str() << endl))
+    if (fprintf(reclogs, "%s:%s: %s\n", logtype, DETINF_LOG_TAG, logmessage) != 0)
     {
-        reclogs.close();
+        fclose(reclogs);
         LOGERR("Failed to write recovery logs!");
         exit(3);
     }
 
     /* close recovery log */
-    reclogs.close();
+    fclose(reclogs);
 }
 
 /* end */
