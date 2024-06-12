@@ -42,9 +42,8 @@ int main(int argc, char *argv[])
 
     static const char *default_device;
     static char *default_devicetmp;
-    static bool static_persist;
     static int opt;
-    static_persist = true;
+    static bool static_prop_svc = true;
 
     while ((opt = getopt_long(argc, argv, "", long_options, nullptr)) != -1)
     {
@@ -76,7 +75,7 @@ int main(int argc, char *argv[])
 
     LOGINF("detecting device...");
     write_recovery_log("detecting device...", DETINF_INFO_TAG);
-    string hwname_temp = getprop("ro.boot.hwname", static_persist);
+    string hwname_temp = getprop("ro.boot.hwname", static_prop_svc);
     const char* hwname = hwname_temp.c_str();
 
     /* load ruby variant */
