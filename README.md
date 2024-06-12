@@ -5,11 +5,11 @@ It is licensed under Apache 2.0.
 I will explain step by step...
 
  - First download this repository and place it in the device tree in `ruby-detect-variant` folder name.
- - Then add the following flag in `device.mk`: `PRODUCT_PACKAGES += ruby-detect-variant`
+ - Then add the following flag in `device.mk`: `PRODUCT_PACKAGES += ruby-detect-variant libresetprop_ruby`
  - And of course, add the following codes to the places you deem appropriate in `init.recovery.mt6877.rc`:
 
 ```
-service ruby-detect-variant /vendor/bin/ruby-detect-variant --default ruby
+service ruby-detect-variant /system/bin/ruby-detect-variant --default ruby
     user root
     group root
     disabled
