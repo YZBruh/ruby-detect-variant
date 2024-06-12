@@ -24,11 +24,14 @@
 #include <unistd.h>
 #include <cstdio>
 #include <cstring>
+#include <string>
 #include <getopt.h>
 #include <resetprop.hpp>
 #include <ruby-detect-variant.hpp>
 #include <logging-ruby.hpp>
 #include <variants-ruby.hpp>
+
+using namespace std;
 
 int main(int argc, char *argv[])
 {
@@ -37,7 +40,7 @@ int main(int argc, char *argv[])
         {0, 0, 0, 0}
     };
 
-    static char *default_device;
+    static const char *default_device;
     static char *default_devicetmp;
     static bool static_persist;
     static int opt;
@@ -74,7 +77,7 @@ int main(int argc, char *argv[])
     LOGINF("detecting device...");
     write_recovery_log("detecting device...", DETINF_INFO_TAG);
     string hwname_temp = getprop("ro.boot.hwname", static_persist);
-    const char* hwname = str.hwname();
+    const char* hwname = hwname_temp.c_str();
 
     /* load ruby variant */
     if (strcmp(hwname, TARGET_1ND_DEVICE_NAME) == 0)
@@ -98,7 +101,7 @@ int main(int argc, char *argv[])
         load_variant(default_device, TARGET_1ND_DEVICE_MODEL);
     }
 
-    exit(0);
+    return 0;
 }
 
 /* end */
