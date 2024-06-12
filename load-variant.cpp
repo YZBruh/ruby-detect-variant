@@ -20,11 +20,13 @@
 #define __IS_USES_LOGGING_FEATURES__
 
 #include <iostream>
-#include <magisk.h>
 #include <resetprop.hpp>
 #include <ruby-detect-variant.hpp>
 #include <logging-ruby.hpp>
 #include <variants-ruby.hpp>
+
+void no_logging();
+void cmdline_logging();
 
 using namespace std;
 
