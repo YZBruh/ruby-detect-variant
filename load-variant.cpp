@@ -32,6 +32,7 @@ using namespace std;
 
 void load_variant(const char* target_variant, const char* target_model)
 {
+    static bool static_prop_svc = true;
 
     /* detect target variant */
     if (strcmp(target_variant, TARGET_1ND_DEVICE_NAME) == 0)
